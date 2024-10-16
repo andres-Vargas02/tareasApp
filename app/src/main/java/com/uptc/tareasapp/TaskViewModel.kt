@@ -1,29 +1,28 @@
-package com.uptc.tareasapp
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.uptc.tareasapp.Task
 
-/**
- * ViewModel que gestiona la lista de tareas.
- */
 class TaskViewModel : ViewModel() {
-    private val _tasks = MutableLiveData<MutableList<Task>>(mutableListOf())
-    val tasks: LiveData<MutableList<Task>> get() = _tasks
 
-    /**
-     * Añadir una nueva tarea a la lista.
-     */
+    // Lista de tareas observada por los fragmentos
+    private val _tasks = MutableLiveData<MutableList<Task>>(mutableListOf())
+    val tasks: MutableLiveData<MutableList<Task>> = _tasks
+
+    // Agregar nueva tarea
     fun addTask(task: Task) {
         _tasks.value?.add(task)
-        _tasks.value = _tasks.value // Para notificar cambios
+        _tasks.value = _tasks.value // Notificar cambios
     }
 
-    /**
-     * Marcar una tarea como completada.
-     */
-    fun completeTask(task: Task) {
-        task.completed = true
-        _tasks.value = _tasks.value // Para notificar cambios
+    // Cambiar el estado de una tarea (completada o pendiente)
+    fun setTaskCompletion(task: Task, completed: Boolean) {
+        _tasks.value = _tasks.value?.map {
+            if (it.id == task.id) {
+                it.copy(completed = completed)
+            } else {
+                it
+            }
+        }?.toMutableList()
     }
 }

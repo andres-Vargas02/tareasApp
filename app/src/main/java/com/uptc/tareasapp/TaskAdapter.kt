@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Adaptador para mostrar las tareas en un RecyclerView.
  */
-class TaskAdapter(private var tasks: List<Task>, private val onTaskCompleted: (Task) -> Unit) :
-    RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(
+    private var tasks: List<Task>,
+    private val onCheckBoxChanged: (Task, Boolean) -> Unit
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.tvTitleTask)
@@ -26,14 +28,16 @@ class TaskAdapter(private var tasks: List<Task>, private val onTaskCompleted: (T
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
+
+        // Desactivar listeners previos antes de actualizar el estado
+        holder.checkBox.setOnCheckedChangeListener(null)
+
         holder.title.text = task.title
         holder.checkBox.isChecked = task.completed
 
-        // Cambiar el estado de la tarea cuando se marca/desmarca
+        // Activar el listener para actualizar el estado de la tarea cuando se presiona el CheckBox
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                onTaskCompleted(task)
-            }
+            onCheckBoxChanged(task, isChecked)
         }
     }
 

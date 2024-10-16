@@ -1,5 +1,6 @@
 package com.uptc.tareasapp
 
+import TaskViewModel
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.navigation.fragment.findNavController
 
 /**
- * Fragmento que muestra y permite agregar tareas pendientes.
+ * Fragmento que muestra las tareas pendientes y permite agregar nuevas tareas.
  */
 class FragmentPending : Fragment(R.layout.fragment_pending) {
 
@@ -24,10 +25,12 @@ class FragmentPending : Fragment(R.layout.fragment_pending) {
         val btnAdd = view.findViewById<Button>(R.id.btnAdd)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewPending)
 
-        // Inicializamos el adaptador
-        val adapter = TaskAdapter(taskViewModel.tasks.value ?: listOf()) { task ->
-            taskViewModel.completeTask(task)
-        }
+        // Inicializamos el adaptador con las tareas pendientes
+        val adapter = TaskAdapter(listOf(), onCheckBoxChanged = { task, isChecked ->
+            // Cambiar el estado de la tarea basado en el CheckBox
+            taskViewModel.setTaskCompletion(task, isChecked)
+        })
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
@@ -41,9 +44,10 @@ class FragmentPending : Fragment(R.layout.fragment_pending) {
             }
         }
 
-        // Observamos los cambios en la lista de tareas
+        // Observamos los cambios en la lista de tareas y filtramos solo las pendientes
         taskViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
-            adapter.updateTasks(tasks)
+            val pendingTasks = tasks.filter { !it.completed }
+            adapter.updateTasks(pendingTasks)
         }
 
         // Navegar al fragmento de tareas completadas

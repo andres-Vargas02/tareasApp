@@ -1,7 +1,7 @@
 package com.uptc.tareasapp
 
 data class Task(
+    val id: Int = (0..1000).random(),
     val title: String,
-    val description: String = "",
-    var completed: Boolean = false
+    val completed: Boolean = false
 )
