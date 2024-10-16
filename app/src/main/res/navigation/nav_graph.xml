@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentPending">
+    <fragment
+        android:id="@+id/fragmentPending"
+        android:name="com.uptc.tareasapp.FragmentPending"
+        android:label="fragment_pending"
+        tools:layout="@layout/fragment_pending" >
+        <action
+            android:id="@+id/action_fragmentPending_to_fragmentDetail"
+            app:destination="@id/fragmentDetail" />
+        <action
+            android:id="@+id/action_fragmentPending_to_fragmentCompleted"
+            app:destination="@id/fragmentCompleted" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCompleted"
+        android:name="com.uptc.tareasapp.FragmentCompleted"
+        android:label="fragment_completed"
+        tools:layout="@layout/fragment_completed" >
+        <action
+            android:id="@+id/action_fragmentCompleted_to_fragmentDetail"
+            app:destination="@id/fragmentDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDetail"
+        android:name="com.uptc.tareasapp.FragmentDetail"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
+</navigation>
