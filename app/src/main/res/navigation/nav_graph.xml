@@ -3,31 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentPending">
+    app:startDestination="@id/fragmentPending"> <!-- Punto de entrada inicial de la navegación -->
+
+    <!-- Fragmento que muestra las tareas pendientes -->
     <fragment
         android:id="@+id/fragmentPending"
         android:name="com.uptc.tareasapp.FragmentPending"
         android:label="fragment_pending"
-        tools:layout="@layout/fragment_pending" >
+        tools:layout="@layout/fragment_pending"> <!-- Layout de vista para la interfaz -->
+
+        <!-- Acciones de navegación desde fragmentPending -->
         <action
             android:id="@+id/action_fragmentPending_to_fragmentDetail"
-            app:destination="@id/fragmentDetail" />
+            app:destination="@id/fragmentDetail" /> <!-- Navegar a FragmentDetail -->
         <action
             android:id="@+id/action_fragmentPending_to_fragmentCompleted"
-            app:destination="@id/fragmentCompleted" />
+            app:destination="@id/fragmentCompleted" /> <!-- Navegar a FragmentCompleted -->
     </fragment>
+
+    <!-- Fragmento que muestra las tareas completadas -->
     <fragment
         android:id="@+id/fragmentCompleted"
         android:name="com.uptc.tareasapp.FragmentCompleted"
         android:label="fragment_completed"
-        tools:layout="@layout/fragment_completed" >
+        tools:layout="@layout/fragment_completed">
+
+        <!-- Acciones de navegación desde fragmentCompleted -->
         <action
             android:id="@+id/action_fragmentCompleted_to_fragmentDetail"
-            app:destination="@id/fragmentDetail" />
+            app:destination="@id/fragmentDetail" /> <!-- Navegar a FragmentDetail -->
     </fragment>
+
+    <!-- Fragmento que muestra los detalles de una tarea -->
     <fragment
         android:id="@+id/fragmentDetail"
         android:name="com.uptc.tareasapp.FragmentDetail"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+
+        <!-- Argumento que se pasa a FragmentDetail -->
+        <argument
+            android:name="taskId"
+            app:argType="integer" /> <!-- ID de la tarea para mostrar sus detalles -->
+    </fragment>
 </navigation>

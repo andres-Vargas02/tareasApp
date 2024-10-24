@@ -23,8 +23,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/checkBox"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Titulo de la tarea" />
+            tools:text="Tarea" />
 
         <CheckBox
             android:id="@+id/checkBox"

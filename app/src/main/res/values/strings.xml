@@ -5,4 +5,6 @@
     <string name="tareas_completadas">Tareas Completadas</string>
     <string name="agregar">Agregar</string>
     <string name="escribe_una_tarea">Escribe una tarea</string>
+    <string name="t_tulo">Título</string>
+    <string name="estado">Estado</string>
 </resources>
